@@ -8,5 +8,16 @@ body
     +lights
 
 template(name='lights')
-  each lights
-    h2= name
+  table.table-minimal
+    thead
+      tr
+        th id
+        th name
+    tbody
+      each lights
+        tr
+          td= this.id
+          td= this.name
+          td
+            button.on on
+            button.off off

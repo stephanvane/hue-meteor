@@ -2,8 +2,10 @@
 @import 'base/base';
 @import 'neat/neat';
 
+@import 'components/table';
+
 body {
-  margin: 0 em(20);
+  margin: em(20);
 }
 
 .container {
