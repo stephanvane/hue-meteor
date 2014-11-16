@@ -1,0 +1,11 @@
+@import 'bourbon/bourbon';
+@import 'base/base';
+@import 'neat/neat';
+
+body {
+  margin: 0 em(20);
+}
+
+.container {
+  @include outer-container;
+}

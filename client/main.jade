@@ -1,0 +1,12 @@
+head
+  title hue
+
+body
+  .container
+    h1 All lights
+
+    +lights
+
+template(name='lights')
+  each lights
+    h2= name
