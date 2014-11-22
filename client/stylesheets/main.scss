@@ -3,9 +3,10 @@
 @import 'neat/neat';
 
 @import 'components/table';
+@import 'components/header';
 
 body {
-  margin: em(20);
+  margin: 0;
 }
 
 .container {

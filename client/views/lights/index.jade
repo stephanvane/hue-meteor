@@ -1,13 +1,6 @@
-head
-  title hue
+template(name='lightsIndex')
+  h1 All lights
 
-body
-  .container
-    h1 All lights
-
-    +lights
-
-template(name='lights')
   table.table-minimal
     thead
       tr
@@ -16,8 +9,8 @@ template(name='lights')
     tbody
       each lights
         tr
-          td= this.id
-          td= this.name
+          td= id
+          td= name
           td
             button.on on
             button.off off

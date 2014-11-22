@@ -1,15 +1,16 @@
-URL = 'http://192.168.192.12/api/stephanvane/'
+URL = 'http://ewe192.168.192.12/api/stephanvane/'
 
 # Model
 class Light
-  constructor: (doc) ->
-    @id = doc.id
-    @name = doc.name
+  constructor: ({@id, @name}) ->
 
   change: (data) ->
-    HTTP.put("#{URL}lights/#{@id}/state", {
+    Log.info("Changing light #{@id} to #{JSON.stringify(data)}")
+    HTTP.put(
+      "#{URL}lights/#{@id}/state"
       data: data
-    }, (_, result) ->
+      (error, result) ->
+        Log.error("Can't change light: #{error.stack}") if error
     )
 
 # Collection

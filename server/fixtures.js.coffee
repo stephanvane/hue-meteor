@@ -14,3 +14,8 @@ if Light.find().count() == 0
   Light.insert
     name: 'Slaapkamer',
     id: '5'
+
+if Timer.find().count() == 0
+  Timer.insert
+    name: 'timer1'
+    schedule: later.parse.text('at 20:00')

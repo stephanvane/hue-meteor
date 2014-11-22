@@ -1,0 +1,15 @@
+template(name='header')
+  header.navigation
+    .navigation-wrapper
+      a.logo(href='/')
+        img(src='https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_1.png', alt='Logo Image')
+      a#js-mobile-menu.navigation-menu-button(href='') MENU
+      .nav
+        ul#navigation-menu
+          li.nav-link.more
+            a(href='/') Lights
+            ul.submenu
+              each lights
+                li: a= name
+          li.nav-link
+            a(href="{{pathFor route='timers.index'}}") Timers

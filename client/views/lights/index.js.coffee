@@ -1,10 +1,10 @@
 Meteor.subscribe('lights')
 
-Template.lights.helpers
+Template.lightsIndex.helpers
   lights: ->
-    Light.find().fetch()
+    Light.find()
 
-Template.lights.events
+Template.lightsIndex.events
   'click button.on': (e) ->
     this.change(on: true)
   'click button.off': (e) ->
