@@ -5,7 +5,16 @@ Template.lightsIndex.helpers
     Light.find()
 
 Template.lightsIndex.events
-  'click button.on': (e) ->
+  'click button.on': ->
     this.change(on: true)
-  'click button.off': (e) ->
+  'click button.off': ->
     this.change(on: false)
+  'click button.default': ->
+    this.restore()
+
+  'click button.allOn': ->
+    LightModel.changeAll(on: true)
+  'click button.allOff': ->
+    LightModel.changeAll(on: false)
+  'click button.allDefault': ->
+    LightModel.restore()

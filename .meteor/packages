@@ -10,4 +10,6 @@ mquandalle:jade
 http
 iron:router
 mrt:later
+percolatestudio:synced-cron
+jquery
 

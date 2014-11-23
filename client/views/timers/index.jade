@@ -1,2 +1,14 @@
 template(name='timersIndex')
   h1 All Timers
+
+  table.table-minimal
+    thead
+      tr
+        th id
+        th name
+
+    tbody
+      each timers
+        tr
+          td= _id
+          td= name

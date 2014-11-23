@@ -35,26 +35,26 @@
       padding: $table-padding;
       border-top: 1px solid $table-border-color;
       border-bottom: 0px;
+    }
+  }
 
-      button {
-        padding: .5em 1em .6em;
-        font-size: .7em;
-        margin-right: 0.5em;
-        display: inline-block;
-        width: 100%;
-        margin-bottom: .3em;
-        outline: none;
+  button {
+    padding: .5em 1em .6em;
+    font-size: .7em;
+    margin-right: 0.5em;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: .3em;
+    outline: none;
 
-        @include media($medium-screen) {
-          width: auto;
-          font-size: .8em;
-          margin-bottom: 0;
-        }
+    @include media($medium-screen) {
+      width: auto;
+      font-size: .8em;
+      margin-bottom: 0;
+    }
 
-        @include media($large-screen) {
-          font-size: .8em;
-        }
-      }
+    @include media($large-screen) {
+      font-size: .8em;
     }
   }
 }

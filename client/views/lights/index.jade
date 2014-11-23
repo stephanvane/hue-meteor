@@ -6,6 +6,10 @@ template(name='lightsIndex')
       tr
         th id
         th name
+        th
+          button.allOn on
+          button.allOff off
+          button.allDefault default
     tbody
       each lights
         tr
@@ -14,3 +18,4 @@ template(name='lightsIndex')
           td
             button.on on
             button.off off
+            button.default default

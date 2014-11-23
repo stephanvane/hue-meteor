@@ -1,6 +1,5 @@
-# Meteor.subscribe('lights')
+Meteor.subscribe('timers')
 
 Template.timersIndex.helpers
-  attr:
-    class: 'red green'
-    id: 'test123'
+  timers: ->
+    Timer.find()
