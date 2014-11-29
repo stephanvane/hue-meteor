@@ -53,3 +53,9 @@ class @LightModel
 @Light = new Meteor.Collection 'lights',
   transform: (doc) ->
     new LightModel(doc)
+
+# Schema
+@Light.attachSchema new SimpleSchema
+  name:
+    type: String
+    label: 'Name'

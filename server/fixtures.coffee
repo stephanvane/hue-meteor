@@ -16,6 +16,11 @@ if Light.find().count() == 0
     id: '5'
 
 if Timer.find().count() == 0
+  lights = Light.find({}, limit: 3).map((l) -> l._id)
+  data = hue: 0, on:true
+
   Timer.insert
     name: 'timer1'
-    schedule: later.parse.text('at 20:00')
+    lights: lights
+    schedule: 'at 20:00'
+    data: data

@@ -6,9 +6,19 @@ template(name='timersIndex')
       tr
         th id
         th name
+        th schedule
+        th lights
+        th
 
     tbody
       each timers
         tr
           td= _id
           td= name
+          td= schedule
+          td
+            each lights
+              = name
+              br
+          td
+            button.edit edit

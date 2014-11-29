@@ -2,7 +2,7 @@ Meteor.startup ->
   Timer.find().forEach (t) ->
     SyncedCron.add
       name: t.name
-      schedule: -> (t.schedule)
+      schedule: (parser) -> parser.text(t.schedule)
       job: ->
-        LightModel.changeAll(hue: 0)
+        LightModel.changeAll(t.data)
   SyncedCron.start()

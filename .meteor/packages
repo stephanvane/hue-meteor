@@ -12,4 +12,7 @@ iron:router
 mrt:later
 percolatestudio:synced-cron
 jquery
+aldeed:autoform
+aldeed:collection2
+matb33:collection-hooks
 

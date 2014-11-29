@@ -6,6 +6,9 @@ Router.route('/', ->
 )
 
 Router.route('/timers', name: 'timers.index')
+Router.route('/timers/:_id/edit', name: 'timers.edit', data: ->
+  Timer.findOne(_id: @params._id)
+)
 # Router.route('/timers', ->
 #   @render('timersIndex')
 # )
