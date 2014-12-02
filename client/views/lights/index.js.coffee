@@ -18,3 +18,6 @@ Template.lightsIndex.events
     LightModel.changeAll(on: false)
   'click button.allDefault': ->
     LightModel.restore()
+
+  'click button.edit': ->
+    Router.go('lights.edit', _id: @_id)

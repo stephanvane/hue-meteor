@@ -56,6 +56,19 @@ class @LightModel
 
 # Schema
 @Light.attachSchema new SimpleSchema
+  id:
+    type: String
+    label: 'ID'
   name:
     type: String
     label: 'Name'
+
+# Allow update
+@Light.allow
+  update: ->
+    true
+
+# Callbacks
+@Light.after.update ->
+  if Meteor.isClient
+    Router.go('/')

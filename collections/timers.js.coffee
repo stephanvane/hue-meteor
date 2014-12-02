@@ -19,6 +19,16 @@
     type: String
     label: 'Schedule'
 
+  data:
+    type: Object
+    label: 'Data'
+  'data.hue':
+    type: Number
+  'data.sat':
+    type: Number
+  'data.bri':
+    type: Number
+
 # Allow update
 @Timer.allow
   update: ->
