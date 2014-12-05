@@ -17,7 +17,7 @@ if Light.find().count() == 0
 
 if Timer.find().count() == 0
   lights = Light.find({}, limit: 3).map((l) -> l._id)
-  data = hue: 0, on:true
+  data = hue: 0, on:true, sat: 255, bri: 255
 
   Timer.insert
     name: 'timer1'

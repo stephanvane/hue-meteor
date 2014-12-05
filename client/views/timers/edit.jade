@@ -1,4 +1,16 @@
 template(name='timersEdit')
   h1 Edit #{name}
 
-  +quickForm collection='Timer' id='updateTimerForm' doc=this type='update'
+  p Next run: #{getNext}
+
+  +autoForm collection='Timer' id='updateTimerForm' doc=this type='update'
+    +afFormGroup name='name'
+    +afFormGroup name='lights'
+    +afFormGroup name='schedule'
+    p Next run: #{getNext}
+    +afQuickField name='data.hue'
+    +afQuickField name='data.sat'
+    +afQuickField name='data.bri'
+
+    .form-group
+      button(type='submit') Submit

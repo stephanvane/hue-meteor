@@ -1,4 +1,4 @@
-URL = 'http://192.168.192.12/api/stephanvane/'
+URL = 'http://77.248.22.140:9999/api/stephanvane/'
 
 DEFAULT = 
   bri: 254
