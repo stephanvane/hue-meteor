@@ -21,3 +21,6 @@ Template.lightsIndex.events
 
   'click button.edit': ->
     Router.go('lights.edit', _id: @_id)
+
+  'click button.delete': ->
+    Light.remove(@_id)

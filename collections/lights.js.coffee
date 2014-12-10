@@ -67,8 +67,16 @@ class @LightModel
 @Light.allow
   update: ->
     true
+  insert: ->
+    true
+  remove: ->
+    true
 
 # Callbacks
 @Light.after.update ->
+  if Meteor.isClient
+    Router.go('/')
+
+@Light.after.insert ->
   if Meteor.isClient
     Router.go('/')

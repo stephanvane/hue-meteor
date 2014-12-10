@@ -1,5 +1,9 @@
-Template.timersEdit.rendered = ->
-  Session.set('nextRun', parseSchedule(this.data.schedule))
+Template.timersEdit.created = ->
+  this.autorun ->
+    if Template.instance().data?
+      Session.set('nextRun', parseSchedule(Template.instance().data.schedule))
+      Tracker.afterFlush ->
+        $('select').select2(width: '100%')
 
 Template.timersEdit.helpers
   getNext: ->
