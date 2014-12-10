@@ -11,4 +11,5 @@ body {
 
 .container {
   @include outer-container;
+  @include padding(null em(20));
 }
