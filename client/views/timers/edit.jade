@@ -1,9 +1,7 @@
 template(name='timersEdit')
   h1 Edit #{name}
 
-  p Next run: #{getNext}
-
-  +autoForm collection='Timer' id='updateTimerForm' doc=this type='update'
+  +autoForm collection='Timer' id='updateTimerForm' doc=this type='update' data='bla'
     +afFormGroup name='name'
     +afFormGroup name='lights'
     +afFormGroup name='schedule'
