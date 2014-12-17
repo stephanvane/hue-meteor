@@ -13,3 +13,9 @@ template(name='header')
                 li: a= name
           li.nav-link
             a(href="{{pathFor route='timers.index'}}") Timers
+
+          li.nav-link
+            if currentUser
+              a.logout(href='#') Logout
+            else
+              a.login(href='#') Login

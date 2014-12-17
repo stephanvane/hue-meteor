@@ -17,5 +17,6 @@ aldeed:collection2
 matb33:collection-hooks
 reactive-var
 mquandalle:bower
-accounts-facebook
+accounts-github
+service-configuration
 

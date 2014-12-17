@@ -1,4 +1,5 @@
 URL = 'http://77.248.22.140:9999/api/stephanvane/'
+# URL = 'http://192.168.192.12/api/stephanvane/'
 
 DEFAULT = 
   bri: 254
@@ -65,12 +66,12 @@ class @LightModel
 
 # Allow update
 @Light.allow
-  update: ->
-    true
-  insert: ->
-    true
-  remove: ->
-    true
+  update: (userId) ->
+    userId?
+  insert: (userId) ->
+    userId?
+  remove: (userId) ->
+    userId?
 
 # Callbacks
 @Light.after.update ->

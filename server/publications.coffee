@@ -1,5 +1,5 @@
 Meteor.publish 'lights', ->
-  Light.find()
+  if @userId then Light.find() else []
 
 Meteor.publish 'timers', ->
-  Timer.find()
+  if @userId then Timer.find() else []

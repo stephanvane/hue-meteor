@@ -1,6 +1,12 @@
 Router.configure
   layoutTemplate: 'layout'
 
+Router.onBeforeAction ->
+  if (!Meteor.userId())
+    @render('login')
+  else
+    @next()
+
 Router.route('/', ->
   @render('lightsIndex')
   @render('lightsSubNav', to: 'subNav')
