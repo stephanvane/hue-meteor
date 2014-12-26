@@ -9,6 +9,8 @@ Meteor.startup ->
 
 ServiceConfiguration.configurations.remove
   service: 'github'
+ServiceConfiguration.configurations.remove
+  service: 'facebook'
 
 ServiceConfiguration.configurations.insert
   service: 'github'
@@ -16,5 +18,17 @@ ServiceConfiguration.configurations.insert
   loginStyle: 'popup'
   secret: '4630ebde7c03d4474a4159d09ff2c7782f0b8d9c'
 
+ServiceConfiguration.configurations.insert
+  service: 'facebook'
+  appId: '1539044769668616'
+  secret: '0c980057f801a66f03141e80053284e6'
+
 Accounts.validateNewUser (user) ->
-  user.services.github.username == 'stephanvane'
+  return user.profile.email == 'stephanvane@gmail.com'
+
+Accounts.onCreateUser (options, user) ->
+  if (options.profile)
+    user.profile = options.profile;
+    user.profile.email=user.services.facebook.email
+
+  return user

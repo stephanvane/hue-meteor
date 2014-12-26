@@ -46,5 +46,5 @@
           LightModel.changeAll(t.data)
     SyncedCron.start()
 
-  if Meteor.isClient
-    Router.go('timers.index')
+  # if Meteor.isClient
+  #   Router.go('timers.index')

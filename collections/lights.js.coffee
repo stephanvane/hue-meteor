@@ -1,4 +1,4 @@
-URL = 'http://77.248.22.140:9999/api/stephanvane/'
+# URL = 'http://77.248.22.140:9999/api/stephanvane/'
 # URL = 'http://192.168.192.12/api/stephanvane/'
 
 DEFAULT = 
@@ -7,6 +7,12 @@ DEFAULT =
   sat: 144
   on: true
 
+getUrl = ->
+  if Meteor.isClient
+    Session.get('url')
+  else
+    Meteor.settings.url
+
 # Model
 class @LightModel
   constructor: ({@id, @name}) ->
@@ -14,7 +20,7 @@ class @LightModel
   change: (data, callback) ->
     Log.info("Changing light #{@id} to #{JSON.stringify(data)}")
     HTTP.put(
-      "#{URL}lights/#{@id}/state"
+      "#{getUrl()}lights/#{@id}/state"
       data: data
       (error, result) ->
         Log.error("Can't change light: #{error.stack}") if error
@@ -26,7 +32,7 @@ class @LightModel
 
   blink: ->
     HTTP.get(
-      "#{URL}lights/#{@id}"
+      "#{getUrl()}lights/#{@id}"
       (_, result) =>
         currentState = JSON.parse(result.content).state
 
@@ -41,7 +47,7 @@ class @LightModel
   @changeAll: (data) ->
     Log.info("Changing all lights to #{JSON.stringify(data)}")
     HTTP.put(
-      "#{URL}groups/0/action"
+      "#{getUrl()}groups/0/action"
       data: data
       (error, result) ->
         Log.error("Can't change light: #{error.stack}") if error
@@ -74,10 +80,10 @@ class @LightModel
     userId?
 
 # Callbacks
-@Light.after.update ->
-  if Meteor.isClient
-    Router.go('/')
+# @Light.after.update ->
+#   if Meteor.isClient
+#     Router.go('/')
 
-@Light.after.insert ->
-  if Meteor.isClient
-    Router.go('/')
+# @Light.after.insert ->
+#   if Meteor.isClient
+#     Router.go('/')

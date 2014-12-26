@@ -19,7 +19,16 @@ Router.route('/lights/:_id/edit', name: 'lights.edit', data: ->
 Router.route('/lights/new', name: 'lights.new')
 
 # Timers
-Router.route('/timers', name: 'timers.index')
+Router.route(
+  '/timers'
+  ->
+    @render('timersIndex')
+    @render('timersSubNav', to: 'subNav')
+  name: 'timers.index'
+)
+Router.route('/timers/new', name: 'timers.new')
+
+
 Router.route('/timers/:_id/edit', name: 'timers.edit', data: ->
   Timer.findOne(_id: @params._id)
 )
