@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "select2": "~3.5.2"
+    "select2": "~3.5.2",
+    "nouislider": "~7.0.9"
   }
 }

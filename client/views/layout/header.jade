@@ -15,6 +15,9 @@ template(name='header')
             a(href="{{pathFor route='timers.index'}}") Timers
 
           li.nav-link
+            a(href="{{pathFor route='dashboard'}}") Dashboard
+
+          li.nav-link
             if currentUser
               a.logout(href='#') Logout
             else

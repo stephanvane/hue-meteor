@@ -18,6 +18,9 @@ Router.route('/lights/:_id/edit', name: 'lights.edit', data: ->
 )
 Router.route('/lights/new', name: 'lights.new')
 
+# Dashboard
+Router.route('/dashboard', name: 'dashboard')
+
 # Timers
 Router.route(
   '/timers'
