@@ -1,0 +1,19 @@
+template(name='presetsIndex')
+  h1 All presets
+  button.addPreset add preset
+
+  table.table-minimal
+    thead
+      tr
+        th id
+        th name
+        th lights
+    tbody
+      each presets
+        tr
+          td= _id
+          td= name
+          td
+            each lights
+              = id
+              br
