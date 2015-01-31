@@ -19,3 +19,20 @@ template(name='dashboard')
         td: .slider#sat-slider
         td: #sat-display-lower
         td: #sat-display-upper
+
+    button.add Add step
+    button.start(disabled=startDisabled) Start
+    button.stop Stop
+
+    table
+      thead
+        tr
+          th Hue-range 
+          th Bri-range 
+          th Sat-range 
+      tbody
+        each steps
+          tr
+            td= hue
+            td= bri
+            td= sat
