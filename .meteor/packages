@@ -5,7 +5,6 @@
 
 meteor-platform
 coffeescript
-fourseven:scss
 mquandalle:jade
 http
 iron:router
@@ -20,3 +19,4 @@ mquandalle:bower
 accounts-github
 service-configuration
 accounts-facebook
+fourseven:scss@2.0.0-beta_2
