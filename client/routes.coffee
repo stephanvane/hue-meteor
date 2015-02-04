@@ -35,6 +35,8 @@ Router.route('/timers/new', name: 'timers.new')
 Router.route('/timers/:_id/edit', name: 'timers.edit', data: ->
   Timer.findOne(_id: @params._id)
 )
+
+Router.route('/presets', name: 'presets.index')
 # Router.route('/timers', ->
 #   @render('timersIndex')
 # )

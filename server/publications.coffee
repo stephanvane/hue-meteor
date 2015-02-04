@@ -3,3 +3,6 @@ Meteor.publish 'lights', ->
 
 Meteor.publish 'timers', ->
   if @userId then Timer.find() else []
+
+Meteor.publish 'presets', ->
+  if @userId then Preset.find() else []
