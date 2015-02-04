@@ -19,6 +19,10 @@ template(name='dashboard')
         td: .slider#sat-slider
         td: #sat-display-lower
         td: #sat-display-upper
+      tr
+        td Transitiontime
+        td: .slider#transitiontime-slider
+        td: #transitiontime-display
 
     button.add Add step
     button.start(disabled=startDisabled) Start
@@ -27,12 +31,14 @@ template(name='dashboard')
     table
       thead
         tr
-          th Hue-range 
-          th Bri-range 
-          th Sat-range 
+          th Hue-range
+          th Bri-range
+          th Sat-range
+          th Transitiontime
       tbody
         each steps
           tr
             td= hue
             td= bri
             td= sat
+            td= transitiontime

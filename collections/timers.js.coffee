@@ -43,7 +43,8 @@
         name: t.name
         schedule: (parser) -> parser.text(t.schedule)
         job: ->
-          LightModel.changeAll(t.data)
+          Light.find(_id: $in: t.lights).forEach (light) ->
+            light.change(t.data)
     SyncedCron.start()
 
   # if Meteor.isClient

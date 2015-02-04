@@ -7,23 +7,39 @@ Template.dashboard.rendered = ->
   $('#hue-slider').noUiSlider
     start: [0, 65535]
     range:
-        min: 0
-        max: 65535
+      min: 0
+      max: 65535
     connect: true
+    format: wNumb
+      decimals: 0
 
   $('#bri-slider').noUiSlider
     start: [0, 255]
     range:
-        min: 0
-        max: 255
+      min: 0
+      max: 255
     connect: true
+    format: wNumb
+      decimals: 0
 
   $('#sat-slider').noUiSlider
     start: [0, 255]
     range:
-        min: 0
-        max: 255
+      min: 0
+      max: 255
     connect: true
+    format: wNumb
+      decimals: 0
+
+  $('#transitiontime-slider').noUiSlider
+    start: 4
+    connect: 'lower'
+    step: 1
+    range:
+      min: 0
+      max: 20
+    format: wNumb
+      decimals: 0
 
 
   $('#hue-slider').Link('lower').to($('#hue-display-lower'))
@@ -32,6 +48,8 @@ Template.dashboard.rendered = ->
   $('#bri-slider').Link('upper').to($('#bri-display-upper'))
   $('#sat-slider').Link('lower').to($('#sat-display-lower'))
   $('#sat-slider').Link('upper').to($('#sat-display-upper'))
+  $('#transitiontime-slider').Link('lower').
+    to($('#transitiontime-display'))
 
 Template.dashboard.helpers
   steps: ->
@@ -47,6 +65,7 @@ Template.dashboard.events
       hue: $('#hue-slider').val()
       bri: $('#bri-slider').val()
       sat: $('#sat-slider').val()
+      transitiontime: $('#transitiontime-slider').val()
     )
     Session.set('steps', steps)
 
@@ -56,6 +75,7 @@ Template.dashboard.events
 
   'click button.stop': ->
     running = false
+    LightModel.restore()
 
 handleStep = (current) ->
   return unless running
@@ -67,6 +87,7 @@ handleStep = (current) ->
     hue: randomValue(step.hue)
     bri: randomValue(step.bri)
     sat: randomValue(step.sat)
+    transitiontime: Number(step.transitiontime)
   LightModel.changeAll(data)
 
   Meteor.setTimeout(
