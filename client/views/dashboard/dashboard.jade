@@ -22,7 +22,15 @@ template(name='dashboard')
       tr
         td Transitiontime
         td: .slider#transitiontime-slider
-        td: #transitiontime-display
+        td(colspan='2'): #transitiontime-display
+      tr
+        td Synchronize colors
+        td
+          input(type='checkbox')#synchronize-colors
+      tr
+        td Synchronize timing
+        td
+          input(type='checkbox')#synchronize-timing
 
     button.add Add step
     button.start(disabled=startDisabled) Start

@@ -1,7 +1,22 @@
 running = false
+currentLightIndex = 0
+availableLights = []
 
 Template.dashboard.created = ->
   Session.set('steps', [])
+
+  # get available lights
+  this.autorun ->
+    return unless Session.get('url')
+
+    res = HTTP.get("#{Session.get('url')}lights", null, (err, res) ->
+      states = JSON.parse(res.content)
+      ids = []
+      states = _.each states, (d, id) ->
+        if d.state.reachable && d.state.on
+          ids.push(id)
+      availableLights = Light.find(id: $in: ids).fetch()
+    )
 
 Template.dashboard.rendered = ->
   $('#hue-slider').noUiSlider
@@ -77,23 +92,35 @@ Template.dashboard.events
     running = false
     LightModel.restore()
 
+# Helpers
 handleStep = (current) ->
   return unless running
 
   console.log("handling step ##{current}")
   steps = Session.get('steps')
   step = steps[current]
-  data =
-    hue: randomValue(step.hue)
-    bri: randomValue(step.bri)
-    sat: randomValue(step.sat)
-    transitiontime: Number(step.transitiontime)
-  LightModel.changeAll(data)
+
+  if $('#synchronize-colors').prop('checked')
+    LightModel.changeAll(stepData(step))
+  else
+    if $('#synchronize-timing').prop('checked')
+      _.each(availableLights, (light) ->
+        light.change(stepData(step))
+      )
+    else
+      availableLights[currentLightIndex].change(stepData(step))
+      currentLightIndex = (currentLightIndex + 1) % availableLights.length
 
   Meteor.setTimeout(
     -> handleStep((current + 1) % steps.length)
     1000
   )
+
+stepData = (step) ->
+  hue: randomValue(step.hue)
+  bri: randomValue(step.bri)
+  sat: randomValue(step.sat)
+  transitiontime: Number(step.transitiontime)
 
 randomValue = ([min, max]) ->
   min = Number(min)
