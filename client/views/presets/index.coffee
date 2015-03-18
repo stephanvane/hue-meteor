@@ -12,3 +12,12 @@ Template.presetsIndex.helpers
 Template.presetsIndex.events
   'click .addPreset': (e) ->
     Meteor.call('insertPreset', 'newPreset')
+
+  'click .select': (e) ->
+    HTTP.put "#{Session.get('url')}groups/0/action", data: scene: @_id, ->
+
+  'click .default': (e) ->
+    LightModel.restore()
+
+  'click .sync': (e) ->
+    Meteor.call('syncWithBridge')
