@@ -2,6 +2,7 @@ template(name='presetsIndex')
   .presets-page
     h1 All presets
     button.addPreset add preset
+    input.name(placeholder: 'name')
 
     table.table-minimal
       thead
@@ -9,6 +10,7 @@ template(name='presetsIndex')
           th id
           th name
           th lights
+          th
       tbody
         each presets
           tr
@@ -20,3 +22,5 @@ template(name='presetsIndex')
 
                 span.preview(style="background-color: {{ hsl data }};")
                 br
+            td
+              button.delete delete

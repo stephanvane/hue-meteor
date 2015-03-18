@@ -23,4 +23,6 @@
 # Allow update
 @Preset.allow
   insert: ->
-    true
+    Meteor.userId?
+  remove: ->
+    Meteor.userId?

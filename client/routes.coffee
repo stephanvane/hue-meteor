@@ -13,9 +13,9 @@ Router.route('/', ->
 )
 
 # Lights
-Router.route('/lights/:_id/edit', name: 'lights.edit', data: ->
+Router.route '/lights/:_id/edit', name: 'lights.edit', data: ->
   Light.findOne(_id: @params._id)
-)
+
 Router.route('/lights/new', name: 'lights.new')
 
 # Dashboard
