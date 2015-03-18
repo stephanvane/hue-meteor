@@ -71,6 +71,8 @@ Template.dashboard.helpers
     Session.get('steps')
   startDisabled: ->
     Session.get('steps').length == 0
+  presets: ->
+    Preset.find()
 
 # Events
 Template.dashboard.events

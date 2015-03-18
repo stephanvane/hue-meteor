@@ -25,16 +25,19 @@ template(name='dashboard')
         td(colspan='2'): #transitiontime-display
       tr
         td Synchronize colors
-        td
+        td(colspan='2')
           input(type='checkbox')#synchronize-colors
       tr
         td Synchronize timing
-        td
+        td(colspan='2')
           input(type='checkbox')#synchronize-timing
 
     button.add Add step
     button.start(disabled=startDisabled) Start
     button.stop Stop
+    select
+      each presets
+        option()= name
 
     table
       thead

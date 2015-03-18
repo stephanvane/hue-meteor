@@ -17,11 +17,11 @@ Meteor.methods
 
     Preset.find().forEach (p) ->
       unless bridge_presets[p.name]
-        console.log(HTTP.put "#{Meteor.settings.url}scenes/#{p._id}", data:
-          lights: _.pluck(p.lights, 'id'))
+        HTTP.put "#{Meteor.settings.url}scenes/#{p.name}", data:
+          lights: _.pluck(p.lights, 'id')
       _.each p.lights, (l) ->
-        console.log(HTTP.put "#{Meteor.settings.url}scenes/#{p._id}/lights/#{l.id}/state",
-          data: l.data)
+        HTTP.put "#{Meteor.settings.url}scenes/#{p.name}/lights/#{l.id}/state",
+          data: l.data
 
 availableLights = ->
   res = HTTP.get("#{Meteor.settings.url}lights")

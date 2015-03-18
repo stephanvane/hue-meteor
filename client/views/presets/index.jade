@@ -3,6 +3,7 @@ template(name='presetsIndex')
     h1 All presets
     button.addPreset add preset
     button.sync Sync with bridge
+    input.name(placeholder: 'name')
 
     table.table-minimal
       thead
@@ -24,3 +25,4 @@ template(name='presetsIndex')
                 br
             td
               button.select select
+              button.delete delete
