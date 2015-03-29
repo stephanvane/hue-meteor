@@ -27,5 +27,5 @@ availableLights = ->
   res = HTTP.get("#{Meteor.settings.url}lights")
   states = JSON.parse(res.content)
   _.each states, (v, k) ->
-    delete states[k] unless v.state.reachable && v.state.on # only reachable lights
+    delete states[k] unless v.state.reachable && v.state.on
   states
