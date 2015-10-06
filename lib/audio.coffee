@@ -3,7 +3,7 @@ return unless Meteor.isClient
 this.changeLights = ->
   LightModel.changeAll
     hue: Math.floor(Math.random() * 65536)
-    bri: 255
+    bri: 90
     sat: 255
     transitiontime: 0
 this.changeLights = _.throttle(this.changeLights, 1000)
@@ -13,13 +13,22 @@ this.createAudioMeter = (audioContext) ->
   processor = audioContext.createScriptProcessor(256)
   processor.lastClip = 0
 
+
   processor.connect(audioContext.destination)
 
   processor.onaudioprocess = (e, a) ->
-    if Math.abs(e.inputBuffer.getChannelData(0)[0]) > 0.5
-      if (@lastClip + 500) < window.performance.now()
-        @lastClip = window.performance.now()
-        changeLights()
+    c = autoCorrelate(e.inputBuffer.getChannelData(0), audioContext.sampleRate)
+    if c != -1 && (@lastClip + 500) < window.performance.now()
+      @lastClip = window.performance.now()
+      bri = Math.floor(Math.min(Math.max((c - 800), 0), 1200) / 1200 * 255)
+      console.log("bri = #{bri}")
+      LightModel.changeAll(bri: bri)
+
+    # REENABLE THIS
+    # if Math.abs(e.inputBuffer.getChannelData(0)[0]) > 0.5
+    #   if (@lastClip + 500) < window.performance.now()
+    #     @lastClip = window.performance.now()
+    #     changeLights()
 
   # ?
   processor.shutdown = ->
@@ -45,6 +54,66 @@ Meteor.startup ->
     (e) ->
       throw(e)
 
+# https://github.com/cwilso/PitchDetect/blob/master/js/pitchdetect.js
+MIN_SAMPLES = 0  # will be initialized when AudioContext is created.
+
+autoCorrelate = (buf, sampleRate) ->
+  SIZE = buf.length
+  MAX_SAMPLES = Math.floor(SIZE/2)
+  best_offset = -1
+  best_correlation = 0
+  rms = 0
+  foundGoodCorrelation = false
+  correlations = new Array(MAX_SAMPLES)
+
+  for i in [0...SIZE]
+    val = buf[i]
+    rms += val*val
+
+  rms = Math.sqrt(rms/SIZE)
+  # if (rms<0.01) # not enough signal
+  if (rms<0.02) # not enough signal
+    return -1
+
+  lastCorrelation=1
+  for offset in [MIN_SAMPLES...MAX_SAMPLES]
+    correlation = 0
+
+    for i in [0...MAX_SAMPLES]
+      correlation += Math.abs((buf[i])-(buf[i+offset]))
+
+    correlation = 1 - (correlation/MAX_SAMPLES)
+    # store it, for the tweaking we need to do below.
+    correlations[offset] = correlation
+
+    if ((correlation>0.9) && (correlation > lastCorrelation))
+      foundGoodCorrelation = true
+      if (correlation > best_correlation)
+        best_correlation = correlation
+        best_offset = offset
+    else if (foundGoodCorrelation)
+      # short-circuit - we found a good correlation, then a bad one, so we'd
+      # just be seeing copies from here. Now we need to tweak the offset - by
+      # interpolating between the values to the left and right of the best
+      # offset, and shifting it a bit.  This is complex, and HACKY in this code
+      # (happy to take PRs!) - we need to do a curve fit on correlations[]
+      # around best_offset in order to better determine precise (anti-aliased)
+      # offset.
+
+      # we know best_offset >=1,
+      # since foundGoodCorrelation cannot go to true until the second pass
+      # (offset=1), and we can't drop into this clause until the following pass
+      # (else if).
+      shift = (correlations[best_offset+1] - correlations[best_offset-1])/correlations[best_offset]
+      return sampleRate/(best_offset+(8*shift))
+
+    lastCorrelation = correlation;
+
+  if (best_correlation > 0.01)
+    console.log("f = #{sampleRate/best_offset} Hz (rms: #{rms} confidence: #{best_correlation})")
+    return sampleRate/best_offset
+  return -1
+
 # throw
 # console.log('errrr')
 # console.log(e)
@@ -64,7 +133,7 @@ Meteor.startup ->
 #   processor.averaging = averaging
 #   processor.clipLag = clipLag
 #
-# 	# this will have no effect, since we don't copy the input to the output,
+#   # this will have no effect, since we don't copy the input to the output,
 #   # but works around a current Chrome bug.
 #   processor.connect(audioContext.destination)
 #
